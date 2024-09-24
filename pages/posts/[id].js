@@ -38,10 +38,26 @@ export default function PostPage({
           {posts?.description && (
             <p className="text-xl mb-4">{posts?.description}</p>
           )}
+          <div className="text-center mb-8">
+            <p className="text-gray-600 dark:text-gray-400">Por: {posts?.author}</p>
+            <p className="text-gray-500 dark:text-gray-300">Publicado em: {new Date(posts?.date).toLocaleDateString()}</p>
+            {posts?.tags && (
+              <div className="mt-4">
+                <p className="font-semibold">Tags:</p>
+                <ul className="flex justify-center space-x-2">
+                  {posts.tags.map((tag) => (
+                    <li key={tag} className="bg-gray-200 dark:bg-gray-800 rounded-full px-4 py-1 text-sm">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}       
+          </div>
         </header>
         <main>
           <article className="prose dark:prose-dark">
-            {posts.body}
+           <MDXRemote{...posts.body}components={components} />
           </article>
         </main>
       </article>
